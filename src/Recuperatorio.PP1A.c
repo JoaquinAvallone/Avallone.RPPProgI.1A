@@ -22,12 +22,15 @@ typedef struct{
 	float precio;
 }eNotebook;
 
+int calcularIVA(float precio, float* impuesto);
 int subibaja(char string[]);
 int ordenarNotebooks(eNotebook vec[], int tam);
 
 int main(void) {
 	setbuf(stdout,NULL);
 
+	float precio = 200.00;
+	float impuesto;
 	char nombre[]="JOAquin";
 
 	eNotebook notebook[TAM]={
@@ -37,6 +40,8 @@ int main(void) {
 				{103, "BAA", "Ryzen", 200000}
 		};
 
+	calcularIVA(precio, &impuesto);
+	printf("%f\n", impuesto);
 	ordenarNotebooks(notebook, TAM);
 
 	subibaja(nombre);
@@ -45,6 +50,7 @@ int main(void) {
 	{
 		printf("%c", nombre[i]);
 	}
+
 	for(int i = 0; i<TAM; i++)
 	{
 		printf("%d     %-4s      %-6s     %f \n",
@@ -64,10 +70,20 @@ int main(void) {
  * y como segundo parámetro la dirección de memoria de una variable donde debe escribir el valor del impuesto(el IVA es 21%).
  *  La función retorna 1 si salió todo bien o 0 si hubo algún error. Realizar la llamada desde main.
  */
-/*int calcularIVA(float precio, float* impuesto)
+int calcularIVA(float precio, float* impuesto)
 {
+	int retorno = 0;
+	int IVA = 21;
 
-}*/
+
+	if(impuesto!=NULL && precio>0)
+	{
+		*impuesto = (IVA * precio)/100;
+		retorno = 1;
+	}
+
+	return retorno;
+}
 
 /*
  * 2. Crear una función que se llame subibaja que reciba una cadena de caracteres y que los caracteres
